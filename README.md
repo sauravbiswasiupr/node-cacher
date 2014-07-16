@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sauravbiswasiupr/node-cacher.svg)](https://travis-ci.org/sauravbiswasiupr/node-cacher)
+
 A node.js module that lets you store data in a cache and can be used in conjunction with any server that you write.
 
 ##Installation
