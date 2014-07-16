@@ -2,7 +2,8 @@
   "name": "node-cacher",
   "dependencies": {
     "redis"  : "*" 
-  }, 
+  },
+  "version": "0.0.1", 
   "scripts": {
     "test": "jasmine-node cache-spec.js"
   }
