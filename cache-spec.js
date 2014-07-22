@@ -13,18 +13,7 @@ describe("Test the cache API", function() {
     var set;
     var got;
 
-    runs(function() {
-      cache = new Cache();
-      
-      cache.construct(function(err, result) {
-        expect(err).toBeNull();
-        initialized = true;
-      });
-    });
-
-    waitsFor(function() {
-      return initialized;
-    });
+    cache = new Cache();
 
     runs(function() {
       cache.set(cacheInfo, 1000, function(err, result) {
@@ -44,7 +33,7 @@ describe("Test the cache API", function() {
     });
 
     runs(function() {
-      cache.stop(function(err, result) {
+      cache.stop(function(err) {
         expect(err).toBeNull();
       });
     });

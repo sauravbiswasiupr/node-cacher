@@ -1,48 +1,49 @@
 var redis = require("redis");
 
 var cache = function() {
-  cache.prototype.construct = function(cb) {
-    var self = this; 
-    self.client = redis.createClient();
-    self.isRunning = true;
-    cb(null, true);
-  }; 
+  this.client = redis.createClient();
+  this.isRunning = true;
+};
 
-  cache.prototype.set = function(cacheInfo, expireTime, cb) {
-    var self = this; 
-    self.client.set(cacheInfo.key, cacheInfo.value);
-    self.client.expire(cacheInfo.key, expireTime);
-    cb(null, true);
-  };
+cache.prototype.set = function(cacheInfo, expireTime, cb) {
+  var self = this; 
+  self.client.set(cacheInfo.key, cacheInfo.value, function(err, result) {
+    if (err)
+      cb(err, null);
+    else {
+      self.client.expire(cacheInfo.key, expireTime);
+      cb(null, true);
+    }
+  });
+};
 
-  cache.prototype.get = function(key, cb) {
-    var self = this; 
-    self.client.get(key, function(err, result) {
-      if (err)
-        cb(err, null);
-      else {
-        if (result !== null)
-          cb(err, result);
-        else
-          cb(err, null);
-      }
-    });
-  }; 
+cache.prototype.get = function(key, cb) {
+  var self = this; 
+  
+  self.client.get(key, function(err, result) {
+    if (err)
+      cb(err, null);
+    else
+      cb(err, result);
+  });
+}; 
 
-  cache.prototype.stop = function(cb) {
-    var self = this; 
-    self.client.keys("*", function(err, keys) {
+cache.prototype.stop = function(cb) {
+  var self = this;
+
+  self.client.keys("*", function(err, keys) {
+    if (err)
+      return cb(err);
+    else {
       keys.forEach(function(key, pos) {
         self.client.del(key, function(err, o) {
-          if (err)
-            cb(err, null);
-          else {
-            self.isRunning = false;
-            cb(null, null);
-          }
+          if (err) 
+            return cb(err);
         });
       });
-    });
-  }
+      self.isRunning = false;
+      cb(null);
+    }
+  });
 };
 module.exports = cache;
