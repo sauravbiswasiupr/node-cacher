@@ -10,8 +10,9 @@ $ npm install node-cacher
 ##Usage
 
 ```js
-var cache = require("node-cacher");
+var Cache = require("node-cacher");
 
+var cache = new Cache();
 cache.construct(function(err, result) {});
 cache.set({ key: "TEST", value: "TEST" }, 1000, function(err, result) {});
 cache.get({ "TEST", function(err, result) {});
