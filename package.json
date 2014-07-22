@@ -7,5 +7,19 @@
   "scripts": {
     "test": "jasmine-node cache-spec.js"
   }, 
-  "main": "./cache.js"
+  "main": "./cache.js", 
+  "repository": {
+    "type": "git", 
+    "url" : "https://github.com/sauravbiswasiupr/node-cacher.git"
+  }, 
+  "bugs": {
+    "mail": "sauravmaximus@gmail.com", 
+    "url" : "https://github.com/sauravbiswasiupr/node-cacher/issues"
+  }, 
+  "contributors": [
+     {
+       "name" : "Saurav Biswas", 
+       "email": "sauravmaximus@gmail.com"
+     }
+  ]
 }
